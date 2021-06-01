@@ -1,0 +1,73 @@
+class doctor:
+  def __init__(self,doctor_name,specilisations,available_days,appointment_seat,hospital):
+    self.hospital=hospital
+    self.doctor_name=doctor_name
+    self.specialisation=specilisations
+    self.available_days=available_days
+    self.appointment_seat=appointment_seat
+
+  def is_available(self,day):
+    if day in self.available_days :
+      return True 
+    else:
+      return False
+  
+  def is_specialist(self,disease):
+    if disease in self.specialisation :
+      return True
+    else:
+      return False
+  def book_appointment(self,day,disease):
+    if self.appointment_seat[day]==0:
+      print("There are no appointment seats are available")
+      exit(0)
+    a=self.is_specialist(disease)
+    self.appointment_seat[day]-=1
+    print("the no of seats available is {}".format(self.appointment_seat[day]))
+    if a==True:
+      return 1
+    else:
+      return -1
+    b=doctor.is_available(day)
+    if b==True:
+      return 1
+    else:
+      return 0
+    
+
+  def do_booking(self,day,disease):
+    c=doctor.book_appointment(self,day,disease)
+    if c==-1:
+      print("requested doctor is not a specialist for your request")
+    if c==0:
+      return "Doctor not available on your requsted date"
+    if c==1 and day in self.available_days:
+      print("appointment successfull")
+      print(self.doctor_name)
+      print(hos.hospital_name)
+      print(hos.address_of_the_hospial)
+      print(day)
+      print(disease)
+    else:
+      return "doctor is not availble on that day"
+    
+class hospital:
+  def __init__(self,hospital_name,address_of_the_hospital):
+    self.hospital_name=hospital_name
+    self.address_of_the_hospial=address_of_the_hospital
+
+class patient:
+  def __init__(self,name_of_patient,disease,doctor):
+    self.doctor=doctor
+    self.name_of_patient=name_of_patient
+    self.disease=disease
+  
+hos=hospital("ABC multispecality hospital","71-south street ponamallee,chennai")
+
+doc=doctor("Dr.John",["diabetics","ENT"],["monday","friday"],{"monday":5,"friday":1},hos)
+pat=patient("talentpy","diabetics",doc)
+pat.doctor.do_booking("friday","ENT")
+pat.doctor.do_booking("friday","ENT")
+
+
+#doc.hospital.do_booking()
